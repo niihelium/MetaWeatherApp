@@ -5,7 +5,7 @@ import space.unkovsky.metaweather.data.remote.MetaWeatherApi
 import space.unkovsky.metaweather.data.remote.dto.toLocation
 import javax.inject.Inject
 
-class SearchLocationRetrofitUseCase @Inject constructor(
+class SearchLocationUseCaseRetrofit @Inject constructor(
     private val api: MetaWeatherApi
 ) : SearchLocationUseCase {
     override suspend fun searchLocation(query: String): List<Location> {

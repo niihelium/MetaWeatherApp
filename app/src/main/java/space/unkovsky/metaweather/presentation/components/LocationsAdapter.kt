@@ -6,17 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import space.unkovsky.metaweather.data.local.Location
 import space.unkovsky.metaweather.databinding.ItemCityBinding
 
-class LocationsAdapter(private val cities: List<Location>) :
-    RecyclerView.Adapter<LocationsAdapter.LocationViewHolder>() {
-    class LocationViewHolder(private val binding: ItemCityBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-
-        fun bind(location: Location) {
-            binding.textLocation.text = location.title
-        }
-
-    }
+class LocationsAdapter(
+    private val cities: List<Location>,
+    private val onItemClickListener: (woeid: Int) -> Unit
+) : RecyclerView.Adapter<LocationsAdapter.LocationViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val binding = ItemCityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,8 +17,20 @@ class LocationsAdapter(private val cities: List<Location>) :
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
-        holder.bind(cities[position])
+        holder.bind(cities[position], onItemClickListener)
     }
 
     override fun getItemCount() = cities.size
+
+    class LocationViewHolder(private val binding: ItemCityBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+
+        fun bind(location: Location, onItemClickListener: (woeid: Int) -> Unit) {
+            binding.textLocation.text = location.title
+            binding.root.setOnClickListener {
+                onItemClickListener(location.woeid)
+            }
+        }
+    }
 }

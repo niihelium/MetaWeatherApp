@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import space.unkovsky.metaweather.R
@@ -23,7 +24,10 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
     override val viewModel: SearchViewModel by viewModels()
 
     val locations = mutableListOf<Location>()
-    val locationsAdapter = LocationsAdapter(locations)
+    val locationsAdapter = LocationsAdapter(locations) {
+        val action = SearchFragmentDirections.actionSearchFragmentToWeatherFragment(it)
+        findNavController().navigate(action)
+    }
 
 
     override fun onCreateView(
