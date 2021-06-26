@@ -9,7 +9,7 @@ import space.unkovsky.metaweather.data.remote.dto.LocationSearchDto
 
 interface MetaWeatherApiService {
     @GET("api/location/search/")
-    suspend fun locationSearch(@Query("query") location: String): Response<List<LocationSearchDto>>
+    suspend fun locationSearch(@Query("query") query: String): Response<List<LocationSearchDto>>
 
     @GET("api/location/{woeid}/")
     suspend fun locationWeather(@Path("woeid") woeid: Int): Response<LocationDto>

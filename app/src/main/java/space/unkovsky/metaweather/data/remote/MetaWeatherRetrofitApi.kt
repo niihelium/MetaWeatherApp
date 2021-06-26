@@ -7,7 +7,7 @@ import javax.inject.Inject
 class MetaWeatherRetrofitApi @Inject constructor(
     val apiService: MetaWeatherApiService
 ) : MetaWeatherApi {
-    override suspend fun locationSearch(location: String): Response<List<LocationSearchDto>> {
-        return apiService.locationSearch(location)
+    override suspend fun locationSearch(query: String): Response<List<LocationSearchDto>> {
+        return apiService.locationSearch(query)
     }
 }

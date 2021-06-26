@@ -1,28 +1,38 @@
 package space.unkovsky.metaweather.presentation.search
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import space.unkovsky.metaweather.data.remote.MetaWeatherApiService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import space.unkovsky.metaweather.presentation.Action
 import space.unkovsky.metaweather.presentation.BaseViewModel
+import space.unkovsky.metaweather.presentation.State
+import space.unkovsky.metaweather.usecases.SearchLocationUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-//    private val weatherApiService: MetaWeatherApiService
+    private val searchLocationUseCase: SearchLocationUseCase
 ) : BaseViewModel() {
 
-   override val stateLiveData: MutableLiveData<State> = MutableLiveData()
+    override val stateLiveData: MutableLiveData<State> = MutableLiveData()
 
     override fun dispatch(action: Action) {
-        when (action){
+        when (action) {
+            is SearchAction.Search -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    val list = searchLocationUseCase.searchLocation(action.query)
 
+                    if (list.isEmpty()) {
+                        updateState(SearchViewState.Empty)
+                    } else {
+                        updateState(SearchViewState.Locations(list))
+                    }
+                }
+            }
         }
     }
 }
 
-sealed class State{
 
-}
-
-sealed class Action
