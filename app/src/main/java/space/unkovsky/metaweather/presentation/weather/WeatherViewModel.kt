@@ -23,7 +23,7 @@ class WeatherViewModel @Inject constructor(
         when (action) {
             is WeatherAction.WeatherRequest -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val weather = getWeatherUseCase.getWeather(action.woeid)
+                    val weather = getWeatherUseCase(action.woeid)
 
                     if (weather.title.isBlank() && weather.weatherStateName.isBlank()) {
                         updateState(WeatherViewState.Weather(weather))

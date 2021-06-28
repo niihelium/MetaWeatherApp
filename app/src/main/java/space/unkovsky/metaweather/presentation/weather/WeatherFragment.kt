@@ -17,7 +17,7 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
 
     private val args: WeatherFragmentArgs by navArgs()
 
-    override val binding: FragmentWeatherBinding
+    override val binding
         get() = super.binding as FragmentWeatherBinding
 
 

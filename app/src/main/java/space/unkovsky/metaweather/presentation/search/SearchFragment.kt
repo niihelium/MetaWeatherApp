@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import space.unkovsky.metaweather.R
-import space.unkovsky.metaweather.data.local.Location
 import space.unkovsky.metaweather.databinding.FragmentSearchBinding
 import space.unkovsky.metaweather.presentation.BaseFragment
 import space.unkovsky.metaweather.presentation.State
@@ -20,7 +19,7 @@ import space.unkovsky.metaweather.presentation.components.LocationsAdapter
 @AndroidEntryPoint
 class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
-    override val binding: FragmentSearchBinding
+    override val binding
         get() = super.binding as FragmentSearchBinding
 
     override val viewModel: SearchViewModel by viewModels()

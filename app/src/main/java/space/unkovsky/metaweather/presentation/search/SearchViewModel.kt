@@ -28,7 +28,7 @@ class SearchViewModel @Inject constructor(
             is SearchAction.Search -> {
                 requestJob?.cancel()
                 requestJob = viewModelScope.launch(Dispatchers.IO) {
-                    val list = searchLocationUseCase.searchLocation(action.query)
+                    val list = searchLocationUseCase(action.query)
 
                     if (isActive)
                         if (list.isEmpty()) {

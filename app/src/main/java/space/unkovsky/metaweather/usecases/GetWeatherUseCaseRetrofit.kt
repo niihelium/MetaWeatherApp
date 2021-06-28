@@ -8,13 +8,12 @@ import javax.inject.Inject
 class GetWeatherUseCaseRetrofit @Inject constructor(
     private val api: MetaWeatherApi
 ) : GetWeatherUseCase {
-    override suspend fun getWeather(woeid: Int): LocationWeather {
+    override suspend operator fun invoke(woeid: Int): LocationWeather {
         val response = api.locationWeather(woeid)
         return if (response.isSuccessful) {
             response.body()?.toLocationWeather() ?: LocationWeather()
         } else {
             LocationWeather()
         }
-
     }
 }

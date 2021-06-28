@@ -8,7 +8,7 @@ import javax.inject.Inject
 class SearchLocationUseCaseRetrofit @Inject constructor(
     private val api: MetaWeatherApi
 ) : SearchLocationUseCase {
-    override suspend fun searchLocation(query: String): List<Location> {
+    override suspend operator fun invoke(query: String): List<Location> {
         val response = api.locationSearch(query)
         return if (response.isSuccessful) {
             response.body()?.map { it.toLocation() } ?: listOf()
