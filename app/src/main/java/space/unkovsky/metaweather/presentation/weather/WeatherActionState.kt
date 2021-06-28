@@ -5,6 +5,7 @@ import space.unkovsky.metaweather.presentation.Action
 import space.unkovsky.metaweather.presentation.State
 
 sealed class WeatherViewState : State {
+    object Empty : WeatherViewState()
     data class Weather(val loccationWeather: LocationWeather) : WeatherViewState()
 }
 

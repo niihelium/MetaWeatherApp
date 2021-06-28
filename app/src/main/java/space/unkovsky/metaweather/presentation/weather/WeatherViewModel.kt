@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import space.unkovsky.metaweather.default
 import space.unkovsky.metaweather.presentation.Action
 import space.unkovsky.metaweather.presentation.BaseViewModel
 import space.unkovsky.metaweather.presentation.State
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase
 ) : BaseViewModel() {
-    override val stateLiveData = MutableLiveData<State>().apply { }
+    override val stateLiveData = MutableLiveData<State>().default(WeatherViewState.Empty)
 
 
     override fun dispatch(action: Action) {

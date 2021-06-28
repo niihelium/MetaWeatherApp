@@ -39,12 +39,25 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
 
     override fun render(state: State) {
         when (state) {
+            is WeatherViewState.Empty -> {
+                with(binding) {
+                    textLocation.visibility = View.GONE
+                    textTemperature.visibility = View.GONE
+                }
+            }
             is WeatherViewState.Weather -> {
                 with(binding) {
-                    textLocation.text = state.loccationWeather.title
+
+                    textLocation.apply {
+                        visibility = View.VISIBLE
+                        text = state.loccationWeather.title
+                    }
 //                    imageWeatherIcon.
-                    textTemperature.text =
-                        "${state.loccationWeather.minTemp}..${state.loccationWeather.maxTemp}"
+                    textTemperature.apply {
+                        visibility = View.VISIBLE
+                        text =
+                            "${state.loccationWeather.minTemp}..${state.loccationWeather.maxTemp}"
+                    }
                 }
             }
         }
