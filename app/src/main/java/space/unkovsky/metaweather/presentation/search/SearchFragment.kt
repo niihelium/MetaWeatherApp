@@ -67,6 +67,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
                 with(binding) {
                     textNoLocations.visibility = View.GONE
                     recyclerCities.visibility = View.VISIBLE
+                    locationsAdapter.setTextToMark(editSearch.text.toString())
                     locationsAdapter.notifyDataSetChanged()
                 }
             }
