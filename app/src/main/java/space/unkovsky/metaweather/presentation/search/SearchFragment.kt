@@ -18,8 +18,8 @@ import space.unkovsky.metaweather.presentation.components.LocationsAdapter
 @AndroidEntryPoint
 class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
-    private var _binding: FragmentSearchBinding? = null
-    private val binding get() = _binding!!
+    override val binding: FragmentSearchBinding
+        get() = super.binding as FragmentSearchBinding
 
     override val viewModel: SearchViewModel by viewModels()
 
@@ -49,12 +49,6 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
             )
         }
         return binding.root
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 

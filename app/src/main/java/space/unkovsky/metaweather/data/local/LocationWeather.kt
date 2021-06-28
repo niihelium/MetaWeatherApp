@@ -4,7 +4,7 @@ class LocationWeather(
     val date: String = "",
     val weatherStateName: String = "",
     val weatherStateAbbr: String = "",
-    val minTemp: Float = 0f,
-    val maxTemp: Float = 0f,
+    val minTemp: String = "",
+    val maxTemp: String = "",
     val title: String = ""
 )

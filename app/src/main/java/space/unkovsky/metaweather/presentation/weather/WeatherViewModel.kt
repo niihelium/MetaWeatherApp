@@ -1,39 +1,38 @@
-package space.unkovsky.metaweather.presentation.search
+package space.unkovsky.metaweather.presentation.weather
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import space.unkovsky.metaweather.default
 import space.unkovsky.metaweather.presentation.Action
 import space.unkovsky.metaweather.presentation.BaseViewModel
 import space.unkovsky.metaweather.presentation.State
-import space.unkovsky.metaweather.usecases.SearchLocationUseCase
+import space.unkovsky.metaweather.usecases.GetWeatherUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val searchLocationUseCase: SearchLocationUseCase
+class WeatherViewModel @Inject constructor(
+    private val getWeatherUseCase: GetWeatherUseCase
 ) : BaseViewModel() {
+    override val stateLiveData = MutableLiveData<State>().apply { }
 
-    override val stateLiveData = MutableLiveData<State>().default(SearchViewState.Empty)
 
     override fun dispatch(action: Action) {
         when (action) {
-            is SearchAction.Search -> {
+            is WeatherAction.WeatherRequest -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val list = searchLocationUseCase.searchLocation(action.query)
+                    val weather = getWeatherUseCase.getWeather(action.woeid)
 
-                    if (list.isEmpty()) {
-                        updateState(SearchViewState.Empty)
+                    if (weather.title.isBlank() && weather.weatherStateName.isBlank()) {
+                        updateState(WeatherViewState.Weather(weather))
                     } else {
-                        updateState(SearchViewState.Locations(list))
+                        updateState(WeatherViewState.Weather(weather))
                     }
                 }
             }
+
         }
     }
 }
-
 

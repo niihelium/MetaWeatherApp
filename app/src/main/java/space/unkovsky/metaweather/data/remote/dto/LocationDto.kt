@@ -2,6 +2,7 @@ package space.unkovsky.metaweather.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import space.unkovsky.metaweather.data.local.LocationWeather
+import space.unkovsky.metaweather.toTemp
 
 data class LocationDto(
     @SerializedName("consolidated_weather")
@@ -16,8 +17,9 @@ fun LocationDto.toLocationWeather(): LocationWeather {
         currentWeather.date,
         currentWeather.weatherStateName,
         currentWeather.weatherStateAbbr,
-        currentWeather.minTemp,
-        currentWeather.maxTemp,
+        currentWeather.minTemp.toTemp(),
+        currentWeather.maxTemp.toTemp(),
         title
     )
 }
+
