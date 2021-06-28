@@ -1,6 +1,8 @@
 package space.unkovsky.metaweather.presentation.search
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,13 +43,26 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
             layoutManager = LinearLayoutManager(context)
         }
 
-        binding.btnSearch.setOnClickListener {
-            viewModel.dispatch(
-                SearchAction.Search(
-                    binding.editSearch.text.toString()
-                )
-            )
-        }
+        binding.editSearch.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    viewModel.dispatch(
+                        SearchAction.Search(binding.editSearch.text.toString())
+                    )
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                }
+            }
+        )
         return binding.root
     }
 
@@ -68,8 +83,8 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
                     textNoLocations.visibility = View.GONE
                     recyclerCities.visibility = View.VISIBLE
                     locationsAdapter.setTextToMark(editSearch.text.toString())
-                    locationsAdapter.notifyDataSetChanged()
                 }
+                locationsAdapter.notifyDataSetChanged()
             }
         }
     }

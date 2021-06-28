@@ -26,12 +26,14 @@ fun markText(string: String, substring: String): Spanned {
             string.substring(index until index + substring.length),
             string.substring(index + substring.length)
         )
-    } else {
+    } else if (stringDown.startsWith(substringDown)) {
         listOf(
             "",
             string.substring(0 until substring.length),
             string.substring(substring.length)
         )
+    } else {
+        listOf(string, "", "")
     }
     return HtmlCompat.fromHtml(
         "${start}<b>${middle}</b>${end}",

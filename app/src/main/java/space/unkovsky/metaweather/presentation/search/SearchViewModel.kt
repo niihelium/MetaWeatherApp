@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import space.unkovsky.metaweather.default
 import space.unkovsky.metaweather.presentation.Action
@@ -19,10 +20,13 @@ class SearchViewModel @Inject constructor(
 
     override val stateLiveData = MutableLiveData<State>().default(SearchViewState.Empty)
 
+    private var requestJob: Job? = null
+
     override fun dispatch(action: Action) {
         when (action) {
             is SearchAction.Search -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                requestJob?.cancel()
+                requestJob = viewModelScope.launch(Dispatchers.IO) {
                     val list = searchLocationUseCase.searchLocation(action.query)
 
                     if (list.isEmpty()) {
