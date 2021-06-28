@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import space.unkovsky.metaweather.default
 import space.unkovsky.metaweather.presentation.Action
@@ -29,11 +30,12 @@ class SearchViewModel @Inject constructor(
                 requestJob = viewModelScope.launch(Dispatchers.IO) {
                     val list = searchLocationUseCase.searchLocation(action.query)
 
-                    if (list.isEmpty()) {
-                        updateState(SearchViewState.Empty)
-                    } else {
-                        updateState(SearchViewState.Locations(list))
-                    }
+                    if (isActive)
+                        if (list.isEmpty()) {
+                            updateState(SearchViewState.Empty)
+                        } else {
+                            updateState(SearchViewState.Locations(list))
+                        }
                 }
             }
         }

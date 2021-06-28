@@ -25,8 +25,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
     override val viewModel: SearchViewModel by viewModels()
 
-    val locations = mutableListOf<Location>()
-    val locationsAdapter = LocationsAdapter(locations) {
+    val locationsAdapter = LocationsAdapter {
         val action = SearchFragmentDirections.actionSearchFragmentToWeatherFragment(it)
         findNavController().navigate(action)
     }
@@ -77,14 +76,11 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
                 }
             }
             is SearchViewState.Locations -> {
-                locations.clear()
-                locations.addAll(state.locations)
                 with(binding) {
                     textNoLocations.visibility = View.GONE
                     recyclerCities.visibility = View.VISIBLE
-                    locationsAdapter.setTextToMark(editSearch.text.toString())
+                    locationsAdapter.setData(state.locations, editSearch.text.toString())
                 }
-                locationsAdapter.notifyDataSetChanged()
             }
         }
     }

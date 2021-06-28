@@ -8,15 +8,17 @@ import space.unkovsky.metaweather.databinding.ItemCityBinding
 import space.unkovsky.metaweather.markText
 
 class LocationsAdapter(
-    private val cities: List<Location>,
     private val onItemClickListener: (woeid: Int) -> Unit
 ) : RecyclerView.Adapter<LocationsAdapter.LocationViewHolder>() {
 
     private var textToMark: String = ""
+    private var locations: List<Location> = listOf()
 
 
-    fun setTextToMark(string: String) {
-        textToMark = string
+    fun setData(locations: List<Location>, textToMark: String) {
+        this.locations = locations
+        this.textToMark = textToMark
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
@@ -25,10 +27,10 @@ class LocationsAdapter(
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
-        holder.bind(cities[position], textToMark, onItemClickListener)
+        holder.bind(locations[position], textToMark, onItemClickListener)
     }
 
-    override fun getItemCount() = cities.size
+    override fun getItemCount() = locations.size
 
     class LocationViewHolder(private val binding: ItemCityBinding) :
         RecyclerView.ViewHolder(binding.root) {
