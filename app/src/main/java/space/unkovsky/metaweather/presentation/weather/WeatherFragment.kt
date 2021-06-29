@@ -50,13 +50,13 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
 
                     textLocation.apply {
                         visibility = View.VISIBLE
-                        text = state.loccationWeather.title
+                        text = state.locationWeather.title
                     }
 //                    imageWeatherIcon.
                     textTemperature.apply {
                         visibility = View.VISIBLE
                         text =
-                            "${state.loccationWeather.minTemp}..${state.loccationWeather.maxTemp}"
+                            "${state.locationWeather.minTemp}..${state.locationWeather.maxTemp}"
                     }
                 }
             }

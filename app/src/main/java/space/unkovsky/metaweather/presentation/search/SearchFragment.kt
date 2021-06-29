@@ -24,11 +24,10 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
     override val viewModel: SearchViewModel by viewModels()
 
-    val locationsAdapter = LocationsAdapter {
+    private val locationsAdapter = LocationsAdapter {
         val action = SearchFragmentDirections.actionSearchFragmentToWeatherFragment(it)
         findNavController().navigate(action)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,13 +64,10 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
                     count: Int
                 ) {
                 }
-
-
             }
         )
         return binding.root
     }
-
 
     override fun render(state: State) {
         if (state !is SearchViewState) return

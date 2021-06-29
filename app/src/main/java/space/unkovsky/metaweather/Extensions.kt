@@ -20,20 +20,24 @@ fun markText(string: String, substring: String): Spanned {
 
     val index = stringDown.indexOf(substringDown)
 
-    val (start, middle, end) = if (index > 0) {
-        listOf(
-            string.substring(0 until index),
-            string.substring(index until index + substring.length),
-            string.substring(index + substring.length)
-        )
-    } else if (stringDown.startsWith(substringDown)) {
-        listOf(
-            "",
-            string.substring(0 until substring.length),
-            string.substring(substring.length)
-        )
-    } else {
-        listOf(string, "", "")
+    val (start, middle, end) = when {
+        index > 0 -> {
+            listOf(
+                string.substring(0 until index),
+                string.substring(index until index + substring.length),
+                string.substring(index + substring.length)
+            )
+        }
+        stringDown.startsWith(substringDown) -> {
+            listOf(
+                "",
+                string.substring(0 until substring.length),
+                string.substring(substring.length)
+            )
+        }
+        else -> {
+            listOf(string, "", "")
+        }
     }
     return HtmlCompat.fromHtml(
         "${start}<b>${middle}</b>${end}",
