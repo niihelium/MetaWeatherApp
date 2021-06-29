@@ -43,22 +43,30 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
         binding.editSearch.addTextChangedListener(
             object : TextWatcher {
+
+                override fun afterTextChanged(s: Editable?) {
+                    viewModel.dispatch(
+                        SearchAction.Search(s.toString())
+                    )
+                }
+
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
                     count: Int,
                     after: Int
                 ) {
-                    viewModel.dispatch(
-                        SearchAction.Search(binding.editSearch.text.toString())
-                    )
                 }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
                 }
 
-                override fun afterTextChanged(s: Editable?) {
-                }
+
             }
         )
         return binding.root
