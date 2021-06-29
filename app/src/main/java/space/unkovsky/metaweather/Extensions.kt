@@ -4,6 +4,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.MutableLiveData
+import retrofit2.Response
 
 fun <T : Any?> MutableLiveData<T>.default(initialValue: T) = apply { setValue(initialValue) }
 
@@ -43,4 +44,19 @@ fun markText(string: String, substring: String): Spanned {
         "${start}<b>${middle}</b>${end}",
         HtmlCompat.FROM_HTML_MODE_COMPACT
     )
+}
+
+suspend fun <T> getApiResult(call: suspend () -> Response<T>): Result<T> {
+    return try {
+        val response = call()
+        if (response.isSuccessful) {
+            response.body()?.let {
+                Result.success(it)
+            } ?: Result.failure(Exception("Body is null"))
+        } else {
+            Result.failure(Exception("${response.code()} ${response.message()}"))
+        }
+    } catch (e: Exception) {
+        Result.failure(Exception(e.toString()))
+    }
 }

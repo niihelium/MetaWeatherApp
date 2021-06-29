@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import space.unkovsky.metaweather.data.remote.dto.toLocationWeather
 import space.unkovsky.metaweather.default
 import space.unkovsky.metaweather.presentation.Action
 import space.unkovsky.metaweather.presentation.BaseViewModel
@@ -23,16 +24,13 @@ class WeatherViewModel @Inject constructor(
         when (action) {
             is WeatherAction.WeatherRequest -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    val weather = getWeatherUseCase(action.woeid)
-
-                    if (weather.title.isBlank() && weather.weatherStateName.isBlank()) {
-                        updateState(WeatherViewState.Weather(weather))
-                    } else {
-                        updateState(WeatherViewState.Weather(weather))
-                    }
+                    getWeatherUseCase(action.woeid).fold({
+                        updateState(WeatherViewState.Weather(it))
+                    }, {
+                        updateState(WeatherViewState.Empty)
+                    })
                 }
             }
-
         }
     }
 }

@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import space.unkovsky.metaweather.data.remote.dto.toLocation
 import space.unkovsky.metaweather.default
 import space.unkovsky.metaweather.presentation.Action
 import space.unkovsky.metaweather.presentation.BaseViewModel
@@ -28,14 +29,12 @@ class SearchViewModel @Inject constructor(
             is SearchAction.Search -> {
                 requestJob?.cancel()
                 requestJob = viewModelScope.launch(Dispatchers.IO) {
-                    val list = searchLocationUseCase(action.query)
-
                     if (isActive)
-                        if (list.isEmpty()) {
+                        searchLocationUseCase(action.query).fold({
+                            updateState(SearchViewState.Locations(it))
+                        }, {
                             updateState(SearchViewState.Empty)
-                        } else {
-                            updateState(SearchViewState.Locations(list))
-                        }
+                        })
                 }
             }
         }
