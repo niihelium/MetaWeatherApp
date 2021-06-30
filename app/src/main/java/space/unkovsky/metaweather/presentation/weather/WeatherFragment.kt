@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import arrow.core.tail
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import space.unkovsky.metaweather.Constants
@@ -13,6 +15,7 @@ import space.unkovsky.metaweather.R
 import space.unkovsky.metaweather.databinding.FragmentWeatherBinding
 import space.unkovsky.metaweather.presentation.BaseFragment
 import space.unkovsky.metaweather.presentation.State
+import space.unkovsky.metaweather.presentation.components.WeatherAdapter
 
 
 @AndroidEntryPoint
@@ -26,12 +29,18 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
 
     override val viewModel: WeatherViewModel by viewModels()
 
+    private val weatherAdapter = WeatherAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWeatherBinding.inflate(layoutInflater)
+        with(binding.weatherDays) {
+            adapter = weatherAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
         return binding.root
     }
 
@@ -50,20 +59,22 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
             }
             is WeatherViewState.Weather -> {
                 with(binding) {
-
-                    textLocation.apply {
-                        visibility = View.VISIBLE
-                        text = state.locationWeather.title
-                    }
-                    Glide.with(binding.root)
-                        .load(Constants.BASE_URL + Constants.IMGURL + state.locationWeather.weatherStateAbbr + Constants.PNG)
-                        .into(imageWeatherIcon)
-                    textTemperature.apply {
-                        visibility = View.VISIBLE
-                        text =
-                            "${state.locationWeather.minTemp}..${state.locationWeather.maxTemp}"
+                    (state.locationWeather.weather[0]).let { todayWeather ->
+                        textLocation.apply {
+                            visibility = View.VISIBLE
+                            text = state.locationWeather.title
+                        }
+                        Glide.with(binding.root)
+                            .load(Constants.BASE_URL + Constants.IMGURL + todayWeather.weatherStateAbbr + Constants.PNG)
+                            .into(imageWeatherIcon)
+                        textTemperature.apply {
+                            visibility = View.VISIBLE
+                            text =
+                                "${todayWeather.minTemp}..${todayWeather.maxTemp}"
+                        }
                     }
                 }
+                weatherAdapter.setData(state.locationWeather.weather.tail())
             }
         }
     }

@@ -1,6 +1,9 @@
 package space.unkovsky.metaweather.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import space.unkovsky.metaweather.data.local.Entity.LocationWeather
+import space.unkovsky.metaweather.data.local.Entity.Weather
+import space.unkovsky.metaweather.toTemp
 
 data class WeatherDto(
     @SerializedName("applicable_date")
@@ -14,3 +17,13 @@ data class WeatherDto(
     @SerializedName("max_temp")
     val maxTemp: Float
 )
+
+fun WeatherDto.toWeather(): Weather{
+    return Weather(
+        date,
+        weatherStateName,
+        weatherStateAbbr,
+        minTemp.toTemp(),
+        maxTemp.toTemp(),
+    )
+}

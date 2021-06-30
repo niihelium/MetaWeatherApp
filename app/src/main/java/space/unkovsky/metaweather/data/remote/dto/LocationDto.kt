@@ -2,7 +2,6 @@ package space.unkovsky.metaweather.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import space.unkovsky.metaweather.data.local.Entity.LocationWeather
-import space.unkovsky.metaweather.toTemp
 
 data class LocationDto(
     @SerializedName("consolidated_weather")
@@ -12,14 +11,10 @@ data class LocationDto(
 )
 
 fun LocationDto.toLocationWeather(): LocationWeather {
-    val currentWeather: WeatherDto = weather[0]
+
     return LocationWeather(
-        currentWeather.date,
-        currentWeather.weatherStateName,
-        currentWeather.weatherStateAbbr,
-        currentWeather.minTemp.toTemp(),
-        currentWeather.maxTemp.toTemp(),
-        title
+        title,
+        weather.map { it.toWeather() }
     )
 }
 
