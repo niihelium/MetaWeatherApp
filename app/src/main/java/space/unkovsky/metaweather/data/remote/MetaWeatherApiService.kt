@@ -13,7 +13,4 @@ interface MetaWeatherApiService {
 
     @GET("api/location/{woeid}/")
     suspend fun locationWeather(@Path("woeid") woeid: Int): Response<LocationDto>
-
-    @GET("/static/img/weather/{id}.svg")
-    suspend fun weatherIcon(@Path("id") weatherStateAbbr: String): Response<ByteArray>
 }

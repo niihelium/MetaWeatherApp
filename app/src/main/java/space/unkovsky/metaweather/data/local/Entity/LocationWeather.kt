@@ -1,10 +1,12 @@
-package space.unkovsky.metaweather.data.local
+package space.unkovsky.metaweather.data.local.Entity
 
-class LocationWeather(
+data class LocationWeather(
     val date: String = "",
     val weatherStateName: String = "",
     val weatherStateAbbr: String = "",
     val minTemp: String = "",
     val maxTemp: String = "",
-    val title: String = ""
+    val title: String = "",
+    val icon: ByteArray = byteArrayOf()
+
 )

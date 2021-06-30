@@ -1,10 +1,12 @@
 package space.unkovsky.metaweather.di
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,10 +15,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import space.unkovsky.metaweather.BuildConfig
 import space.unkovsky.metaweather.Constants
 import space.unkovsky.metaweather.data.remote.LatLonDeserializer
-import space.unkovsky.metaweather.data.remote.dto.LatLonDto
 import space.unkovsky.metaweather.data.remote.MetaWeatherApi
 import space.unkovsky.metaweather.data.remote.MetaWeatherApiService
 import space.unkovsky.metaweather.data.remote.MetaWeatherRetrofitApi
+import space.unkovsky.metaweather.data.remote.dto.LatLonDto
+import java.io.File
 import javax.inject.Singleton
 
 @Module

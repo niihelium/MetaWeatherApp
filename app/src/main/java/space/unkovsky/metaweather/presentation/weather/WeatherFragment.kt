@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import space.unkovsky.metaweather.Constants
 import space.unkovsky.metaweather.R
 import space.unkovsky.metaweather.databinding.FragmentWeatherBinding
 import space.unkovsky.metaweather.presentation.BaseFragment
 import space.unkovsky.metaweather.presentation.State
+
 
 @AndroidEntryPoint
 class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
@@ -52,7 +55,9 @@ class WeatherFragment : BaseFragment(R.layout.fragment_weather) {
                         visibility = View.VISIBLE
                         text = state.locationWeather.title
                     }
-//                    imageWeatherIcon.
+                    Glide.with(binding.root)
+                        .load(Constants.BASE_URL + Constants.IMGURL + state.locationWeather.weatherStateAbbr + Constants.PNG)
+                        .into(imageWeatherIcon)
                     textTemperature.apply {
                         visibility = View.VISIBLE
                         text =

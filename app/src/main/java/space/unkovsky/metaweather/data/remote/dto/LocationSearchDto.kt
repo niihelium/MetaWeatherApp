@@ -1,7 +1,7 @@
 package space.unkovsky.metaweather.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
-import space.unkovsky.metaweather.data.local.Location
+import space.unkovsky.metaweather.data.local.Entity.Location
 
 data class LocationSearchDto(
     @SerializedName("title")

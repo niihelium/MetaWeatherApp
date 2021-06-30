@@ -1,7 +1,6 @@
 package space.unkovsky.metaweather.data.remote
 
 import retrofit2.Response
-import retrofit2.http.Path
 import space.unkovsky.metaweather.data.remote.dto.LocationDto
 import space.unkovsky.metaweather.data.remote.dto.LocationSearchDto
 

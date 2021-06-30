@@ -1,4 +1,4 @@
-package space.unkovsky.metaweather.data.local
+package space.unkovsky.metaweather.data.local.Entity
 
 
 data class Location(

@@ -1,7 +1,7 @@
 package space.unkovsky.metaweather.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
-import space.unkovsky.metaweather.data.local.LocationWeather
+import space.unkovsky.metaweather.data.local.Entity.LocationWeather
 import space.unkovsky.metaweather.toTemp
 
 data class LocationDto(
