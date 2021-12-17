@@ -1,6 +1,6 @@
 package space.unkovsky.metaweather.presentation.search
 
-import space.unkovsky.metaweather.data.local.Entity.Location
+import space.unkovsky.metaweather.data.local.entity.Location
 import space.unkovsky.metaweather.presentation.Action
 import space.unkovsky.metaweather.presentation.State
 

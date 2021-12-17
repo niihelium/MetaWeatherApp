@@ -3,7 +3,7 @@ package space.unkovsky.metaweather.presentation.components
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import space.unkovsky.metaweather.data.local.Entity.Location
+import space.unkovsky.metaweather.data.local.entity.Location
 import space.unkovsky.metaweather.databinding.ItemCityBinding
 import space.unkovsky.metaweather.markText
 

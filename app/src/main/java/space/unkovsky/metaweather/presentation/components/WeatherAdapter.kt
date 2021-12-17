@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import space.unkovsky.metaweather.Constants
-import space.unkovsky.metaweather.data.local.Entity.Weather
+import space.unkovsky.metaweather.data.local.entity.Weather
 import space.unkovsky.metaweather.databinding.ItemWeatherBinding
 
 class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {

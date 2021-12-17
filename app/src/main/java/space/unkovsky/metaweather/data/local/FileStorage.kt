@@ -5,7 +5,6 @@ import javax.inject.Inject
 
 class FileStorage @Inject constructor(
     private val cacheDir: File
-
 ) {
     fun getIcon(abbreviation: String): ByteArray {
         return File(cacheDir, abbreviation).readBytes()

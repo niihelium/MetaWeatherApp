@@ -1,6 +1,6 @@
 package space.unkovsky.metaweather.usecases
 
-import space.unkovsky.metaweather.data.local.Entity.LocationWeather
+import space.unkovsky.metaweather.data.local.entity.LocationWeather
 import space.unkovsky.metaweather.data.remote.MetaWeatherApi
 import space.unkovsky.metaweather.data.remote.dto.toLocationWeather
 import space.unkovsky.metaweather.getApiResult
